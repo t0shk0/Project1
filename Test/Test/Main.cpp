@@ -179,7 +179,9 @@ int main() {
 	return 0;
 }
 
-*/
+
+-=1.14=-
+Version 2
 
 int main() {
 
@@ -213,4 +215,35 @@ int main() {
 	}
 
 	return 0;
+}
+*/
+
+/*
+-=1.15=-
+*/
+
+float CelToFahr(int *);
+float CelToFahr(int &);
+
+int main() {
+	int lower = 5, upper = 45;
+
+	printf("Celsius Fahr\n");
+	while (lower <= upper) {
+		printf("   %d %6.1f\n", lower, CelToFahr(&lower));
+		//printf("   %d %6.1f\n", lower, CelToFahr(lower));
+		lower += 3;
+	}
+
+	return 0;
+}
+
+float CelToFahr(int *cel) {
+	float result = *cel * (9.0 / 5.0) + 32;
+	return result;
+}
+
+float CelToFahr(int & cel) {
+	float result = cel * (9.0 / 5.0) + 32;
+	return result;
 }
