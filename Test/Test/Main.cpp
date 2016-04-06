@@ -307,6 +307,7 @@ void Reverse(char *string, int begin, int end) {
 /*
 -=2.2=-
 
+
 int GetLine(char line[], int maxLine);
 
 int main() {
