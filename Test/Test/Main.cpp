@@ -50,7 +50,7 @@ int main() {
 		printf("   %d %6.1f\n", lower, lower * (9.0 / 5.0) + 32);
 		lower += 3;
 	}
-	
+
 	return 0;
 }
 */
@@ -63,7 +63,7 @@ int main() {
 -=1.6=-
 
 int main() {
-	
+
 	//int c = getchar() != EOF;
 	//printf("%d", c);
 
@@ -304,6 +304,7 @@ void Reverse(char *string, int begin, int end) {
 
 */
 
+
 /*
 -=2.2=-
 
@@ -342,4 +343,63 @@ int GetLine(char s[], int lim) {
 	s[i] = '\0';
 	return i;
 }
+
+*/
+
+/*
+-=2.3=-
+
+
+int Htoi(char *number);
+
+int main() {
+	char hexNumber[10], temp;
+	int i = 0;
+
+	printf("Enter the HEX number!\n");
+
+	while ((temp = getchar()) != '\n') {
+		hexNumber[i] = temp;
+		i++;
+	}
+
+	printf("%d", Htoi(hexNumber));
+
+	return 0;
+}
+
+int Htoi(char *number) {
+	int i = 0;
+
+	if (number[i] == '0') {
+		i++;
+	}
+
+	if (number[i] == 'x' || number[i] == 'X') {
+		i++;
+	}
+
+	int result = 0, hexNum;
+	bool inHex = true;
+
+	while (inHex) {
+		if (number[i] >= '0' && number[i] <= '9') {
+			hexNum = number[i] - '0';
+		} else if (number[i] >= 'a' && number[i] <= 'f') {
+			hexNum = number[i] - 'a' + 10;
+		} else if (number[i] >= 'A' && number[i] <= 'F') {
+			hexNum = number[i] - 'A' + 10;
+		} else {
+			inHex = false;
+		}
+		i++;
+
+		if (inHex) {
+			result = 16 * result + hexNum;
+		}
+	}
+
+	return result;
+}
+
 */
