@@ -403,3 +403,50 @@ int Htoi(char *number) {
 }
 
 */
+
+/*
+-=2.4=-
+*/
+
+void Squeeze(char [], char []);
+
+int main() {
+	char *in, *from;
+	in = "abs";
+	from = "krb";
+
+	Squeeze(in, from);
+
+	//printf("%c", in);
+
+	return 0;
+}
+
+void Squeeze(char in[], char from[]) {
+	int i = 0, n, p, s;
+	char temp[50];
+
+	while (from[i] != '\0') {
+		n = 0;
+		while (in[n] != '\0') {
+			if (from[i] != in[n]) {
+				in[n] = '\n';
+			}
+			n++;
+		}
+		i++;
+	}
+
+	p = 0;
+	s = 0;
+
+	/*while (in[p] != '\0') {
+		if (in[p] != '\n') {
+			temp[s] = in[p];
+			s++;
+		}
+		p++;
+	}*/
+
+	//in = temp;
+}
