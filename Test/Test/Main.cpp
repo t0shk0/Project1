@@ -220,7 +220,7 @@ int main() {
 
 /*
 -=1.15=-
-*/
+
 
 float CelToFahr(int *);
 float CelToFahr(int &);
@@ -247,3 +247,98 @@ float CelToFahr(int & cel) {
 	float result = cel * (9.0 / 5.0) + 32;
 	return result;
 }
+*/
+
+/*
+-=1.19=-
+
+void Reverse(char *, int, int);
+
+int main() {
+	char text[1023], reversedText[1023] = {0}, temp[102];
+
+	printf("Insert yout text here: \n");
+	fgets(text, 1023, stdin);
+
+	int i = 0, k = 0, p, sum = 0;
+
+	while (text[i] != '\0') {
+		if (text[i] != '^' && text[i] != '\n') {
+			temp[k] = text[i];
+			k++;
+		} else {
+			Reverse(temp, 0, k - 1);
+
+			p = sum;
+			while (p < k + sum) {
+				reversedText[p] = temp[p - sum];
+				p++;
+			}
+
+			reversedText[p] = '\n';
+
+			sum += ++k;
+			k = 0;
+		}
+		i++;
+	}
+
+	printf("%s", reversedText);
+
+	return 0;
+}
+
+void Reverse(char *string, int begin, int end) {
+	char c;
+
+	if (begin >= end) {
+		return;
+	}
+
+	c = *(string + begin);
+	*(string + begin) = *(string + end);
+	*(string + end) = c;
+
+	Reverse(string, ++begin, --end);
+}
+
+*/
+
+/*
+-=2.2=-
+
+int GetLine(char line[], int maxLine);
+
+int main() {
+	char line[1000];
+	int i = 0;
+
+	while (GetLine(line, 1000) > 5) {
+		printf("%d\n", i);
+		i++;
+	}
+	return 0;
+}
+
+int GetLine(char s[], int lim) {
+	int c, i;
+
+	//for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i) {
+		//s[i] = c;
+	//}
+	i = 0;
+	while ((c = getchar()) != EOF) {
+		if (i > lim - 1) {
+			break;
+		} else if (c == '\n') {
+			s[i] = c;
+			++i;
+			break;
+		}
+		s[i] = c;
+		i++;
+	}
+	s[i] = '\0';
+	return i;
+}
+*/

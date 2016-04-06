@@ -1,3 +1,2 @@
 ﻿  Main.cpp
-d:\project1\test\test\main.cpp(240): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   Test.vcxproj -> D:\Project1\Test\Debug\Test.exe
