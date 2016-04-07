@@ -406,22 +406,29 @@ int Htoi(char *number) {
 
 /*
 -=2.4=-
-*/
+
+#include <string.h>
 
 void Squeeze(char [], char []);
 
 int main() {
-	char in[50] = { "abs" }, from[50] = { "krb" };
+	char in[50], from[50];
+
+	printf("Delete matching chars from string:\n");
+	fgets(in, 50, stdin);
+
+	printf("Matching chars:\n");
+	fgets(from, 50, stdin);
 
 	Squeeze(in, from);
 
-	printf("%s", in);
+	printf("Result (string without the mathing chars): %s\n", in);
 
 	return 0;
 }
 
 void Squeeze(char in[], char from[]) {
-	int i = 0, n, p, s;
+	int i = 0, n, s;
 	char temp[50];
 
 	while (from[i] != '\0') {
@@ -435,21 +442,64 @@ void Squeeze(char in[], char from[]) {
 		i++;
 	}
 
-	p = 0;
+	n = 0;
 	s = 0;
 
-	while (in[p] != '\0') {
-		if (in[p] != '\n') {
-			temp[s] = in[p];
+	while (in[n] != '\0') {
+		if (in[n] != '\n') {
+			temp[s] = in[n];
 			s++;
 		}
-		p++;
+		n++;
 	}
 
 	i = 0;
 
+	memset(in, 0, sizeof in);
 	while (i < s) {
-		in[i] = temp[i];
+		memmove(in, temp, s);
 		i++;
 	}
 }
+
+*/
+
+/*
+-=2.5=-
+
+int Any(char *, char *);
+
+int main() {
+	char in[100], from[20];
+	int posit;
+
+	printf("Insert a string for searching into!\n");
+	fgets(in, 100, stdin);
+
+	printf("Insert searching chars!\n");
+	fgets(from, 20, stdin);
+
+	posit = Any(in, from);
+
+	printf("\nResult\n\nPosition: %d\nChar: %c\n", posit, in[posit]);
+
+}
+
+int Any(char *in, char *from) {
+	int i = 0, pos, result = -1;
+
+	while (from[i] != '\n') {
+		pos = 0;
+		while (in[pos] != '\n') {
+			if (from[i] == in[pos]) {
+				result = pos;
+				break;
+			}
+			pos++;
+		}
+		i++;
+	}
+	
+	return result;
+}
+*/
