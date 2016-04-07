@@ -206,6 +206,9 @@ int main() {
 	for (int k = 0; k < 150; k++) {
 		int n = 0;
 		while (n < charCodes[k]) {
+			if (n == 0) {
+				printf("%c: ", k);
+			}
 			printf("*");
 			n++;
 		}
@@ -216,6 +219,7 @@ int main() {
 
 	return 0;
 }
+
 */
 
 /*
@@ -349,7 +353,6 @@ int GetLine(char s[], int lim) {
 /*
 -=2.3=-
 
-
 int Htoi(char *number);
 
 int main() {
@@ -401,8 +404,8 @@ int Htoi(char *number) {
 
 	return result;
 }
-
 */
+
 
 /*
 -=2.4=-
@@ -506,30 +509,30 @@ int Any(char *in, char *from) {
 
 /*
 -=2.9=-
-*/
+
 int main() {
-	/*unsigned int x = 101;
+	//unsigned int x = 101;
 
-	x &= (x - 1); // x = x & (x - 1);
+	//x &= (x - 1); // x = x & (x - 1);
 
-	printf("%d\n", x);*/
+	//printf("%d\n", x);
 
 	unsigned int x;
 
 	printf("Enter decimal number: ");
 	x = getchar() - 48;
 
-	/*int b;
-	for (b = 0; x != 0; x>>= 1) {
-		if (x & 01) {
-			b++;
-		}
-	}*/
+	int b;
+	//for (b = 0; x != 0; x>>= 1) {
+	//	if (x & 01) {
+	//		b++;
+	//	}
+	//}
 
-	/*int b;
-	x = x - ((x >> 1) & 0x55555555);
-	x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
-	b = (((x + (x >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;*/
+	//int b;
+	//x = x - ((x >> 1) & 0x55555555);
+	//x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
+	//b = (((x + (x >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24; 
 
 	int b = 0;
 	while (x) {
@@ -541,3 +544,47 @@ int main() {
 
 	return 0;
 }
+
+*/
+
+/*
+-=Task 7=-
+
+
+void RotateLeft(unsigned int, unsigned int);
+
+int main() {
+	char temp;
+	unsigned int bits, i = 0, hexNumber;
+
+	printf("Enter the number of bits for the left rotating shift: ");
+	scanf("%d", &bits);
+
+	printf("Enter the HEX number: ");
+	scanf("%x", &hexNumber);
+
+	RotateLeft(hexNumber, bits);
+
+	return 0;
+}
+
+void RotateLeft(unsigned int x, unsigned int n) {
+	printf("%x\n", (x << n) | (x >> (32 - n)));
+}
+
+//const char * HexToBin(unsigned char c) {
+//	char * quads[] = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", 
+//		"0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110" ,"1111" };
+//
+//	if (c >= '0' && c <= '9') {
+//		return quads[c - '0'];
+//	} else if (c >= 'A' && c <= 'F') {
+//		return quads[10 + c - 'A'];
+//	} if (c >= 'a' && c <= 'f') {
+//		return quads[10 + c - 'a'];
+//	}
+//
+//	return "error";
+//}
+
+*/
