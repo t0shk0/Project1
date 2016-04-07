@@ -503,3 +503,41 @@ int Any(char *in, char *from) {
 	return result;
 }
 */
+
+/*
+-=2.9=-
+*/
+int main() {
+	/*unsigned int x = 101;
+
+	x &= (x - 1); // x = x & (x - 1);
+
+	printf("%d\n", x);*/
+
+	unsigned int x;
+
+	printf("Enter decimal number: ");
+	x = getchar() - 48;
+
+	/*int b;
+	for (b = 0; x != 0; x>>= 1) {
+		if (x & 01) {
+			b++;
+		}
+	}*/
+
+	/*int b;
+	x = x - ((x >> 1) & 0x55555555);
+	x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
+	b = (((x + (x >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;*/
+
+	int b = 0;
+	while (x) {
+		x &= (x - 1);
+		b++;
+	}
+
+	printf("%d\n", b);
+
+	return 0;
+}
