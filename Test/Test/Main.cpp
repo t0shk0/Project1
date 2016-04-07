@@ -411,13 +411,11 @@ int Htoi(char *number) {
 void Squeeze(char [], char []);
 
 int main() {
-	char *in, *from;
-	in = "abs";
-	from = "krb";
+	char in[50] = { "abs" }, from[50] = { "krb" };
 
 	Squeeze(in, from);
 
-	//printf("%c", in);
+	printf("%s", in);
 
 	return 0;
 }
@@ -429,7 +427,7 @@ void Squeeze(char in[], char from[]) {
 	while (from[i] != '\0') {
 		n = 0;
 		while (in[n] != '\0') {
-			if (from[i] != in[n]) {
+			if (from[i] == in[n]) {
 				in[n] = '\n';
 			}
 			n++;
@@ -440,13 +438,18 @@ void Squeeze(char in[], char from[]) {
 	p = 0;
 	s = 0;
 
-	/*while (in[p] != '\0') {
+	while (in[p] != '\0') {
 		if (in[p] != '\n') {
 			temp[s] = in[p];
 			s++;
 		}
 		p++;
-	}*/
+	}
 
-	//in = temp;
+	i = 0;
+
+	while (i < s) {
+		in[i] = temp[i];
+		i++;
+	}
 }
