@@ -588,3 +588,79 @@ void RotateLeft(unsigned int x, unsigned int n) {
 //}
 
 */
+
+/*
+-=Task: 6=-
+*/
+
+int Check(unsigned int, char);
+
+int main() {
+	unsigned int num;
+	char func = 'd';
+
+	//num = 0x000000ff;
+
+	printf("Enter:\n'a' for finding a bit different from '0'\n"
+		"'b' for finding a bit different from '1'\n"
+		"'c' for finding out if there is a '1' bits in least significant byte\n"
+		"'d' for finding out if there is a '0' bits in most significant byte\n\n"
+		"Function: ");
+	scanf("%c", &func);
+
+	printf("\nEnter the number: ");
+	scanf("%x", &num);
+	
+	printf("%d\n\n", Check(num, func));
+
+	return 0;
+}
+
+int Check(unsigned int num, char c) {
+	switch (c) {
+		case 'a': {
+			/*int i, n = 0;
+			for (i = 0; num != 0; num >>= 1) {
+				if (num & 01) {
+					i++;
+				}
+				n++;
+			}
+			if (i != n) {
+				return 1;
+			}
+			return 0;*/
+			return ((num & 0xf) != 0xf);
+		} break;
+		case 'b': {
+			/*int i;
+			for (i = 0; num != 0; num >>= 1) {
+				if (num & 01) {
+					return 1;
+				}
+			}
+			return 0;*/
+			return((num & 0xf) != 0x0);
+		} break;
+		case 'c': {
+			return ((num & 0xff) != 0);
+		} break;
+		case 'd': {
+			unsigned int temp;
+
+			/*if (num <= 0xf) { temp = 0xf; }
+			else if (num <= 0xff) { temp = 0xff; }
+			else if (num <= 0xfff) { temp = 0xff0; }
+			else if (num <= 0xffff) { temp = 0xff00; }
+			else if (num <= 0xfffff) { temp = 0xff000; }
+			else if (num <= 0xffffff) { temp = 0xff0000; }
+			else if (num <= 0xfffffff) { temp = 0xff00000; }
+			else if (num <= 0xffffffff) { temp = 0xff000000; }*/
+
+			//printf("Size of:  %d \n", sizeof(num));
+
+			return (((num >> 24) & 0xff) != 0xff);
+		} break;
+	}
+	return -1;
+}
