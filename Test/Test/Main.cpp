@@ -509,7 +509,7 @@ int Any(char *in, char *from) {
 
 /*
 -=2.9=-
-
+*/
 int main() {
 	//unsigned int x = 101;
 
@@ -520,13 +520,14 @@ int main() {
 	unsigned int x;
 
 	printf("Enter decimal number: ");
-	x = getchar() - 48;
+	scanf("%d", &x);
 
-	int b;
+	//int b, c = 0;
 	//for (b = 0; x != 0; x>>= 1) {
 	//	if (x & 01) {
 	//		b++;
 	//	}
+	//	c++;
 	//}
 
 	//int b;
@@ -545,11 +546,10 @@ int main() {
 	return 0;
 }
 
-*/
+
 
 /*
 -=Task 7=-
-
 
 void RotateLeft(unsigned int, unsigned int);
 
@@ -591,7 +591,7 @@ void RotateLeft(unsigned int x, unsigned int n) {
 
 /*
 -=Task: 6=-
-*/
+
 
 int Check(unsigned int, char);
 
@@ -619,27 +619,27 @@ int main() {
 int Check(unsigned int num, char c) {
 	switch (c) {
 		case 'a': {
-			/*int i, n = 0;
-			for (i = 0; num != 0; num >>= 1) {
-				if (num & 01) {
-					i++;
-				}
-				n++;
-			}
-			if (i != n) {
-				return 1;
-			}
-			return 0;*/
+			//int i, n = 0;
+			//for (i = 0; num != 0; num >>= 1) {
+			//	if (num & 01) {
+			//		i++;
+			//	}
+			//	n++;
+			//}
+			//if (i != n) {
+			//	return 1;
+			//}
+			//return 0;
 			return ((num & 0xf) != 0xf);
 		} break;
 		case 'b': {
-			/*int i;
-			for (i = 0; num != 0; num >>= 1) {
-				if (num & 01) {
-					return 1;
-				}
-			}
-			return 0;*/
+			//int i;
+			//for (i = 0; num != 0; num >>= 1) {
+			//	if (num & 01) {
+			//		return 1;
+			//	}
+			//}
+			//return 0;
 			return((num & 0xf) != 0x0);
 		} break;
 		case 'c': {
@@ -648,14 +648,14 @@ int Check(unsigned int num, char c) {
 		case 'd': {
 			unsigned int temp;
 
-			/*if (num <= 0xf) { temp = 0xf; }
-			else if (num <= 0xff) { temp = 0xff; }
-			else if (num <= 0xfff) { temp = 0xff0; }
-			else if (num <= 0xffff) { temp = 0xff00; }
-			else if (num <= 0xfffff) { temp = 0xff000; }
-			else if (num <= 0xffffff) { temp = 0xff0000; }
-			else if (num <= 0xfffffff) { temp = 0xff00000; }
-			else if (num <= 0xffffffff) { temp = 0xff000000; }*/
+			//if (num <= 0xf) { temp = 0xf; }
+			//else if (num <= 0xff) { temp = 0xff; }
+			//else if (num <= 0xfff) { temp = 0xff0; }
+			//else if (num <= 0xffff) { temp = 0xff00; }
+			//else if (num <= 0xfffff) { temp = 0xff000; }
+			//else if (num <= 0xffffff) { temp = 0xff0000; }
+			//else if (num <= 0xfffffff) { temp = 0xff00000; }
+			//else if (num <= 0xffffffff) { temp = 0xff000000; }
 
 			//printf("Size of:  %d \n", sizeof(num));
 
@@ -664,3 +664,80 @@ int Check(unsigned int num, char c) {
 	}
 	return -1;
 }
+
+*/
+
+/*
+Задача 1 от допълнителните
+
+unsigned int SetBit(unsigned int, unsigned char);
+
+int main() {
+	//Променят се при тестване -->
+	unsigned int num = 0xabcc;
+	unsigned char posit = 0;
+	//<--
+
+	printf("Result: 0x%x\n", SetBit(num, posit));
+
+	return 0;
+}
+
+//Тук не бях сигурен дали трябва да връща стойност, но ако нещо ще променя функцията
+//или мога да използвам поинтъри, за да не се налага да връщам нищо
+//
+//И за Hex числа unsigned int или char да използвам? Кое е по-добре?
+//
+//Също така само на position ли да използвам unsigned или и на самото число
+//Как е по-добре
+unsigned int SetBit(unsigned int num, unsigned char position) {
+	return (num |= (1 << position));
+}
+*/
+
+/*
+Задача 2 от допълнителните
+
+//Тази задача я направих с unsigned char, за да видя дали всичко работи с него като при int
+unsigned char ClearBit(unsigned char, unsigned char);
+
+int main() {
+	//Променят се при тестване -->
+	unsigned char 
+		posit = 1, 
+		num = 0xf;
+	//<--
+
+	printf("Result: 0x%x\n", ClearBit(num, posit));
+
+	return 0;
+}
+
+unsigned char ClearBit(unsigned char num, unsigned char position) {
+	//В такива функции, в които мога да напиша всичко на един ред
+	//в този формат ли да пиша или да разделям отделните части, променливи и т.н.
+	return num &= ~(1 << position);
+}
+*/
+
+/*
+Задача 3 от допълнителните
+
+unsigned int IsPowerOfTwo(unsigned int);
+
+int main() {
+	unsigned int hexNumber;
+
+	//Променят се при тестване -->
+	hexNumber = 0x0101;
+	//<--
+
+	printf("%d\n", IsPowerOfTwo(hexNumber));
+
+	return 0;
+}
+
+unsigned int IsPowerOfTwo(unsigned int number) {
+	return (!(number & (number - 1)) && (number != 0));
+}
+*/
