@@ -509,7 +509,7 @@ int Any(char *in, char *from) {
 
 /*
 -=2.9=-
-*/
+
 int main() {
 	//unsigned int x = 101;
 
@@ -546,7 +546,7 @@ int main() {
 	return 0;
 }
 
-
+*/
 
 /*
 -=Task 7=-
@@ -741,3 +741,273 @@ unsigned int IsPowerOfTwo(unsigned int number) {
 	return (!(number & (number - 1)) && (number != 0));
 }
 */
+
+/*
+Задача 4 от допълнителните
+
+unsigned int CheckOneBitSet(unsigned int);
+
+int main() {
+	unsigned int hexNumber;
+
+	//Променят се при тестване -->
+	hexNumber = 0;
+	//<--
+
+	printf("%d\n", CheckOneBitSet(hexNumber));
+
+	return 0;
+}
+
+unsigned int CheckOneBitSet(unsigned int number) {
+	return (number && !(number & (number - 1)));
+}
+*/
+
+/*
+Задача 5 от допълнителните
+
+unsigned int CheckParity(unsigned int);
+
+int main() {
+	unsigned int hexNumber;
+
+	//Променят се при тестване -->
+	hexNumber = 5;
+	//<--
+
+	printf("%d\n", CheckParity(hexNumber));
+
+	return 0;
+}
+
+unsigned int CheckParity(unsigned int number) {
+	//За 32 битови машини
+	number ^= number >> 16;
+	number ^= number >> 8;
+	number ^= number >> 4;
+	number ^= number >> 2;
+	number ^= number >> 1;
+	return !((~number) & 1);
+}
+*/
+
+/*
+Задача 6 от допълнителните
+
+
+int main() {
+	int a = 5;
+	int b = 3;
+
+	a ^= b;
+	b ^= a;
+	a ^= b;
+
+	printf("a=%d, b=%d\n", a, b);
+
+	return 0;
+}
+*/
+
+/*
+Task: 3.3
+
+
+void Expand(char [], char []);
+
+int main() {
+	//Test values -->
+	char text[] = { "t0shk0 a-f a-c-pA-Z t0shk0" }, result[255];
+	//<--
+
+	Expand(text, result);
+
+	printf("Result character string: %s", result);
+
+	return 0;
+}
+
+void Expand(char shortNotation[], char complNotation[]) {
+	short i = 0, k = 0;
+	char firstChar = -52, secondChar = -52;
+	bool tempResult = false;
+
+	while (shortNotation[i] != -52) {
+		if (shortNotation[i] != 45 && shortNotation[i] != 32 &&
+			shortNotation[i + 1] == '-' && shortNotation[i + 2] > shortNotation[i]) {
+
+			firstChar = shortNotation[i];
+			secondChar = shortNotation[i + 2];
+
+			tempResult = true;
+
+			if (complNotation[k - 1] == firstChar) { k--; }
+
+			while (firstChar < secondChar) {
+				complNotation[k] = firstChar;
+
+				firstChar++;
+				k++;
+			}
+
+			complNotation[k--] = firstChar;
+
+			firstChar = secondChar = -52;
+			i++;
+		}
+
+		if (!tempResult) { complNotation[k] = shortNotation[i]; } 
+		else { tempResult = false; }
+
+		k++;
+		i++;
+	}
+}
+*/
+
+
+/*
+Task: 3.6
+
+#include <string.h>
+
+void Reverse(char []);
+void Itoa(int, char [], int);
+
+int main() {
+	//Test values -->
+	char test[15];
+	Itoa(54568, test, 10);
+	//<--
+
+	printf("Number, converted to character string:%s\n", test);
+
+	return 0;
+}
+
+void Itoa(int n, char s[], int minWidth) {
+	int i = 0, sign;
+
+	if ((sign = n) < 0) { n = -n; }
+
+	do {
+		s[i++] = n % 10 + '0';
+	} while ((n /= 10) > 0);
+
+	if (sign < 0) { s[i++] = '-'; }
+
+	if (i < minWidth) {
+		while (i < minWidth) {
+			s[i] = ' ';
+			i++;
+		}
+	}
+
+	s[i] = '\0';
+	Reverse(s);
+}
+
+void Reverse(char s[]) {
+	int c, i, j;
+
+	for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+		c = s[i];
+		s[i] = s[j];
+		s[j] = c;
+	}
+}
+*/
+
+/*
+Task: 7.1 - 7.8
+
+This program provides a simple 5-function calculator.
+
+===> OTHER DOCUMENTATION HERE
+
+Input:  a char, stored in operation;
+two reals, stored in op1 and op2;
+Output: the result of the expression (op1 operation op2).
+--------------------------------------------------------------*/
+
+#include <math.h>
+
+char getMenuChoice(const char [], char, char);
+double apply(char, double, double);
+
+int main() {
+	char name[15];
+	int age;
+
+	printf("Please enter your name: ");
+	scanf("%s", &name);
+	
+	do {
+		printf("Please enter your age: ");
+		scanf("%i", &age);
+		fseek(stdin, 0, SEEK_END);
+	} while (age < 0 || age > 110);
+	
+	const char menu[] = { "\nPlease enter:\n"
+		"\ta - to perform addition;\n"
+		"\tb - to perform subtraction;\n"
+		"\tc - to perform multiplication;\n"
+		"\td - to perform division;\n"
+		"\te - to perform exponentiation;\n"
+		"\tf - to exit\n"
+		"--> " };
+
+	while (1) {
+		char operation = getMenuChoice(menu, 'a', 'f');
+
+		if (operation == 'f') { break; }
+
+		double op1 = -9.2559631349317831e+61, op2 = -9.2559631349317831e+61, result;
+
+		do {
+			printf("Now enter your valid operands: ");
+			scanf("%lf %lf", &op1, &op2);
+			fseek(stdin, 0, SEEK_END);
+		} while (op1 == -9.2559631349317831e+61 || op2 == -9.2559631349317831e+61);
+
+		result = apply(operation, op1, op2);
+
+		printf("\nThe result for %s:%i is %lf \n\n", name, age, result);
+	}
+
+	return 0;
+}
+
+char getMenuChoice(const char menu[], char firstChoice, char lastChoice) {
+	char choice;
+	
+	do {
+		printf("%s", menu);
+		fseek(stdin, 0, SEEK_END);
+		choice = getchar();
+	} while (choice < firstChoice || choice > lastChoice);
+	
+	return choice;
+}
+
+double apply(char operation, double op1, double op2) {
+	switch (operation) {
+	case 'a':
+		return op1 + op2;
+		break;
+	case 'b':
+		return op1 - op2;
+		break;
+	case 'c':
+		return op1 * op2;
+		break;
+	case 'd':
+		return op1 / op2;
+		break;
+	case 'e':
+		return pow(op1, op2);
+		break;
+	default: return 0;
+	}
+}
