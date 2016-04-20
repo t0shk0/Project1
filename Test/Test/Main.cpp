@@ -358,6 +358,7 @@ int Htoi(char *number);
 int main() {
 	char hexNumber[10], temp;
 	int i = 0;
+	bool hexCheck = false;
 
 	printf("Enter the HEX number!\n");
 
@@ -366,23 +367,32 @@ int main() {
 		i++;
 	}
 
-	printf("%d", Htoi(hexNumber));
+	if(hexNumber[0] == '0' && (hexNumber[1] == 'x' || hexNumber[1] == 'X')) {
+		hexCheck = true;
+	}
+
+	i = 2;
+	while(hexNumber[i] != -52) {
+		if((hexNumber[i] < '0' || hexNumber[i] > '9') &&
+			(hexNumber[i] < 'a' || hexNumber[i] > 'f') &&
+			(hexNumber[i] < 'A' || hexNumber[i] > 'F')) {
+			hexCheck = false;
+			break;
+		}
+		i++;
+	}
+
+	if(hexCheck) {
+		printf("%d\n", Htoi(hexNumber));
+	} else {
+		printf("Wrong formated Hex number!\n");
+	}
 
 	return 0;
 }
 
 int Htoi(char *number) {
-	int i = 0;
-
-	if (number[i] == '0') {
-		i++;
-	}
-
-	if (number[i] == 'x' || number[i] == 'X') {
-		i++;
-	}
-
-	int result = 0, hexNum;
+	int result = 0, hexNum, i = 2;
 	bool inHex = true;
 
 	while (inHex) {
@@ -406,9 +416,10 @@ int Htoi(char *number) {
 }
 */
 
-
 /*
 -=2.4=-
+
+Version: 1 Alpha :)
 
 #include <string.h>
 
@@ -465,6 +476,42 @@ void Squeeze(char in[], char from[]) {
 	}
 }
 
+Version 2: Much faster :)
+
+#include <string.h>
+
+void Squeeze(char[], char[]);
+
+int main() {
+	char in[50], from[50];
+
+	printf("Delete matching chars from string:\n");
+	fgets(in, 50, stdin);
+
+	printf("Matching chars:\n");
+	fgets(from, 50, stdin);
+
+	Squeeze(in, from);
+
+	printf("Result (string without the mathing chars): %s\n", in);
+
+	return 0;
+}
+
+void Squeeze(char in[], char from[]) {
+	int i = 0, n;
+
+	while(from[i] != '\0') {
+		n = 0;
+		while(in[n] != '\0') {
+			if(from[i] == in[n]) {
+				memmove((in + n), (in + n + 1), (sizeof(in) / sizeof(in[0])) + 1);
+			}
+			n++;
+		}
+		i++;
+	}
+}
 */
 
 /*
@@ -500,9 +547,10 @@ int Any(char *in, char *from) {
 			}
 			pos++;
 		}
+		if(result != -1) { break; }
 		i++;
 	}
-	
+
 	return result;
 }
 */
@@ -533,7 +581,7 @@ int main() {
 	//int b;
 	//x = x - ((x >> 1) & 0x55555555);
 	//x = (x & 0x33333333) + ((x >> 2) & 0x33333333);
-	//b = (((x + (x >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24; 
+	//b = (((x + (x >> 4)) & 0x0F0F0F0F) * 0x01010101) >> 24;
 
 	int b = 0;
 	while (x) {
@@ -545,7 +593,6 @@ int main() {
 
 	return 0;
 }
-
 */
 
 /*
@@ -573,7 +620,7 @@ void RotateLeft(unsigned int x, unsigned int n) {
 }
 
 //const char * HexToBin(unsigned char c) {
-//	char * quads[] = { "0000", "0001", "0010", "0011", "0100", "0101", "0110", 
+//	char * quads[] = { "0000", "0001", "0010", "0011", "0100", "0101", "0110",
 //		"0111", "1000", "1001", "1010", "1011", "1100", "1101", "1110" ,"1111" };
 //
 //	if (c >= '0' && c <= '9') {
@@ -592,7 +639,6 @@ void RotateLeft(unsigned int x, unsigned int n) {
 /*
 -=Task: 6=-
 
-
 int Check(unsigned int, char);
 
 int main() {
@@ -610,7 +656,7 @@ int main() {
 
 	printf("\nEnter the number: ");
 	scanf("%x", &num);
-	
+
 	printf("%d\n\n", Check(num, func));
 
 	return 0;
@@ -668,12 +714,12 @@ int Check(unsigned int num, char c) {
 */
 
 /*
-Задача 1 от допълнителните
+Task 1 from the additional
 
 unsigned int SetBit(unsigned int, unsigned char);
 
 int main() {
-	//Променят се при тестване -->
+	//Change when testing -->
 	unsigned int num = 0xabcc;
 	unsigned char posit = 0;
 	//<--
@@ -683,28 +729,20 @@ int main() {
 	return 0;
 }
 
-//Тук не бях сигурен дали трябва да връща стойност, но ако нещо ще променя функцията
-//или мога да използвам поинтъри, за да не се налага да връщам нищо
-//
-//И за Hex числа unsigned int или char да използвам? Кое е по-добре?
-//
-//Също така само на position ли да използвам unsigned или и на самото число
-//Как е по-добре
 unsigned int SetBit(unsigned int num, unsigned char position) {
 	return (num |= (1 << position));
 }
 */
 
 /*
-Задача 2 от допълнителните
+Task 2 from the additional
 
-//Тази задача я направих с unsigned char, за да видя дали всичко работи с него като при int
 unsigned char ClearBit(unsigned char, unsigned char);
 
 int main() {
-	//Променят се при тестване -->
-	unsigned char 
-		posit = 1, 
+	//Change when testing -->
+	unsigned char
+		posit = 1,
 		num = 0xf;
 	//<--
 
@@ -714,21 +752,19 @@ int main() {
 }
 
 unsigned char ClearBit(unsigned char num, unsigned char position) {
-	//В такива функции, в които мога да напиша всичко на един ред
-	//в този формат ли да пиша или да разделям отделните части, променливи и т.н.
 	return num &= ~(1 << position);
 }
 */
 
 /*
-Задача 3 от допълнителните
+Task 3 from the additional
 
 unsigned int IsPowerOfTwo(unsigned int);
 
 int main() {
 	unsigned int hexNumber;
 
-	//Променят се при тестване -->
+	//Change when testing -->
 	hexNumber = 0x0101;
 	//<--
 
@@ -743,14 +779,14 @@ unsigned int IsPowerOfTwo(unsigned int number) {
 */
 
 /*
-Задача 4 от допълнителните
+Task 4 from the additional
 
 unsigned int CheckOneBitSet(unsigned int);
 
 int main() {
 	unsigned int hexNumber;
 
-	//Променят се при тестване -->
+	//Change when testing -->
 	hexNumber = 0;
 	//<--
 
@@ -765,14 +801,14 @@ unsigned int CheckOneBitSet(unsigned int number) {
 */
 
 /*
-Задача 5 от допълнителните
+Task 5 from the additional
 
 unsigned int CheckParity(unsigned int);
 
 int main() {
 	unsigned int hexNumber;
 
-	//Променят се при тестване -->
+	//Change when testing -->
 	hexNumber = 5;
 	//<--
 
@@ -782,7 +818,7 @@ int main() {
 }
 
 unsigned int CheckParity(unsigned int number) {
-	//За 32 битови машини
+	//For 32bit versions
 	number ^= number >> 16;
 	number ^= number >> 8;
 	number ^= number >> 4;
@@ -793,12 +829,13 @@ unsigned int CheckParity(unsigned int number) {
 */
 
 /*
-Задача 6 от допълнителните
-
+Task 6 from the additional
 
 int main() {
+	//Change when testing -->
 	int a = 5;
 	int b = 3;
+	//<--
 
 	a ^= b;
 	b ^= a;
@@ -812,7 +849,6 @@ int main() {
 
 /*
 Task: 3.3
-
 
 void Expand(char [], char []);
 
@@ -857,7 +893,7 @@ void Expand(char shortNotation[], char complNotation[]) {
 			i++;
 		}
 
-		if (!tempResult) { complNotation[k] = shortNotation[i]; } 
+		if (!tempResult) { complNotation[k] = shortNotation[i]; }
 		else { tempResult = false; }
 
 		k++;
@@ -865,7 +901,6 @@ void Expand(char shortNotation[], char complNotation[]) {
 	}
 }
 */
-
 
 /*
 Task: 3.6
@@ -929,11 +964,11 @@ This program provides a simple 5-function calculator.
 Input:  a char, stored in operation;
 two reals, stored in op1 and op2;
 Output: the result of the expression (op1 operation op2).
---------------------------------------------------------------*/
+--------------------------------------------------------------
 
 #include <math.h>
 
-char getMenuChoice(const char [], char, char);
+char getMenuChoice(const char[], char, char);
 double apply(char, double, double);
 
 int main() {
@@ -942,26 +977,26 @@ int main() {
 
 	printf("Please enter your name: ");
 	scanf("%s", &name);
-	
+
 	do {
 		printf("Please enter your age: ");
 		scanf("%i", &age);
 		fseek(stdin, 0, SEEK_END);
-	} while (age < 0 || age > 110);
-	
-	const char menu[] = { "\nPlease enter:\n"
+	} while(age < 0 || age > 110);
+
+	const char menu[] = {"\nPlease enter:\n"
 		"\ta - to perform addition;\n"
 		"\tb - to perform subtraction;\n"
 		"\tc - to perform multiplication;\n"
 		"\td - to perform division;\n"
 		"\te - to perform exponentiation;\n"
 		"\tf - to exit\n"
-		"--> " };
+		"--> "};
 
-	while (1) {
+	while(1) {
 		char operation = getMenuChoice(menu, 'a', 'f');
 
-		if (operation == 'f') { break; }
+		if(operation == 'f') { break; }
 
 		double op1 = -9.2559631349317831e+61, op2 = -9.2559631349317831e+61, result;
 
@@ -969,11 +1004,11 @@ int main() {
 			printf("Now enter your valid operands: ");
 			scanf("%lf %lf", &op1, &op2);
 			fseek(stdin, 0, SEEK_END);
-		} while (op1 == -9.2559631349317831e+61 || op2 == -9.2559631349317831e+61);
+		} while(op1 == -9.2559631349317831e+61 || op2 == -9.2559631349317831e+61);
 
 		result = apply(operation, op1, op2);
 
-		printf("\nThe result for %s:%i is %lf \n\n", name, age, result);
+		printf("\nThe result for %s:%i is: %lf \n\n", name, age, result);
 	}
 
 	return 0;
@@ -981,33 +1016,34 @@ int main() {
 
 char getMenuChoice(const char menu[], char firstChoice, char lastChoice) {
 	char choice;
-	
+
 	do {
 		printf("%s", menu);
 		fseek(stdin, 0, SEEK_END);
 		choice = getchar();
-	} while (choice < firstChoice || choice > lastChoice);
-	
+	} while(choice < firstChoice || choice > lastChoice);
+
 	return choice;
 }
 
 double apply(char operation, double op1, double op2) {
-	switch (operation) {
-	case 'a':
-		return op1 + op2;
-		break;
-	case 'b':
-		return op1 - op2;
-		break;
-	case 'c':
-		return op1 * op2;
-		break;
-	case 'd':
-		return op1 / op2;
-		break;
-	case 'e':
-		return pow(op1, op2);
-		break;
-	default: return 0;
+	switch(operation) {
+		case 'a':
+			return op1 + op2;
+			break;
+		case 'b':
+			return op1 - op2;
+			break;
+		case 'c':
+			return op1 * op2;
+			break;
+		case 'd':
+			return op1 / op2;
+			break;
+		case 'e':
+			return pow(op1, op2);
+			break;
+		default: return 0;
 	}
 }
+*/
