@@ -958,12 +958,6 @@ void Reverse(char s[]) {
 Task: 7.1 - 7.8
 
 This program provides a simple 5-function calculator.
-
-===> OTHER DOCUMENTATION HERE
-
-Input:  a char, stored in operation;
-two reals, stored in op1 and op2;
-Output: the result of the expression (op1 operation op2).
 --------------------------------------------------------------
 
 #include <math.h>
@@ -1047,3 +1041,173 @@ double apply(char operation, double op1, double op2) {
 	}
 }
 */
+
+/*
+Task: 4.12
+
+
+void Itoa(int n, char s[]) {
+	static int i;
+
+	if(n / 10) {
+		Itoa(n / 10, s);
+	} else {
+		i = 0;
+		if(n < 0) { s[i++] = '-'; }
+	}
+
+	if(n < 0) { n = -n; }
+
+	s[i++] = n % 10 + '0';
+	s[i] = '\0';
+}
+
+int main() {
+	char test[15];
+	Itoa(-54568, test);
+
+	printf("Number, converted to character string: %s\n", test);
+
+	return 0;
+}
+*/
+
+/*
+Just some tesing
+
+void Swap(int &a, int &b) {
+	int c;
+
+	c = a;
+	a = b;
+	b = c;
+}
+
+int main() {
+	int a = 2, b = 3;
+	Swap(a, b);
+
+	printf("%d, %d\n", a, b);
+	return 0;
+}
+*/
+
+/*
+Task: 5.4
+
+int StrLen(char []);
+bool StrEnd(char [], char []);
+
+int main() {
+	//Change when testing -->
+	char a[] = "My name is t0shk0!", b[] = "t0shk0!";
+	//<--
+
+	if(StrEnd(a, b)) { printf("TRUE\n"); } 
+	else { printf("FALSE\n"); }
+
+	return 0;
+}
+
+int StrLen(char s[]) {
+	int n = 0;
+
+	while(s[n++] != '\0');
+
+	return n;
+}
+
+bool StrEnd(char s[], char t[]) {
+	size_t lenS, lenT;
+
+	lenS = StrLen(s);
+	lenT = StrLen(t);
+
+	if(lenS >= lenT) {
+		size_t startP = lenS - lenT, i = 0;
+
+		while(s[startP++] == t[i] && t[i++] != '\0');
+
+		if(lenT == i) { return 1; }
+	}
+	return 0;
+}
+*/
+
+/*
+Task: 5.5
+*/
+#define MAX_INT 2147483647
+
+int StrLen(char []);
+void StrnCpy(char [], char [], int = MAX_INT);
+void StrnCat(char [], char [], int = MAX_INT);
+int StrnCmp(char[], char[], int = MAX_INT);
+
+int main() {
+	//Change when testing -->
+	const int numChars = 3;
+	char a[numChars + 1], b[] = "abc";
+	//<--
+	
+	//Coping chars from b to a
+	StrnCpy(a, b, numChars);
+	printf("Coping result: %s\n", a);
+
+	//------------------------------------------
+
+	char str1[20], str2[20];
+
+	//Coping string to str1 & str2
+	StrnCpy(str1, "To be ");
+	StrnCpy(str2, "or not to be");
+
+	//Concatenating str1 & str2
+	StrnCat(str1, str2, 6);
+	printf("Concatenating result: %s\n", str1);
+
+	//------------------------------------------
+
+	//Comparing p & q
+	char p[] = "r2d2", q[] = "r2d6";
+	int result = StrnCmp(p, q);
+	printf("Comparing result: %d\n", result);
+
+	return 0;
+}
+
+//Returns length of the string
+int StrLen(char s[]) {
+	int n = 0;
+
+	while(s[n++] != '\0');
+
+	return n;
+}
+
+//Coping chars from t to s untill the n character or \0 is reached
+void StrnCpy(char s[], char t[], int n) {
+	int i = 0;
+
+	while(((s[i] = t[i]) && --n > 0) && t[i++] != '\0');
+	s[i] = '\0';
+}
+
+//Concatenating s & t untill the n character or \0 is reached
+void StrnCat(char s[], char t[], int n) {
+	size_t sFullPosits = StrLen(s) - 1, i = 0;
+
+	while(((s[sFullPosits++] = t[i]) && --n > 0) && t[i++] != '\0');
+	s[sFullPosits] = '\0';
+}
+
+//Comparing s & t untill the n character or \0 is reached
+int StrnCmp(char s[], char t[], int n) {
+	size_t i = 0;
+
+	while((s[i] == t[i]) && --n > 0) {
+		if(s[i++] == '\0') { return 0; }
+	}
+
+	return s[i] - t[i];
+}
