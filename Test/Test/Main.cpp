@@ -1211,3 +1211,7 @@ int StrnCmp(char s[], char t[], int n) {
 
 	return s[i] - t[i];
 }
+
+/*
+Task: 5.8
+*/
