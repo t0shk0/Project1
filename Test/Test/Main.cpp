@@ -1221,9 +1221,30 @@ static char dayTab[2][13] = {
 	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 };
 
+int DayOfYear(int, int, int);
+void MonthDay(int, int, int *, int *);
+
+int main() {
+	int a, b, c;
+
+	//--> Just some testing
+	printf("Test1: DayOfYear\n");
+	c = DayOfYear(0, 11, 30); //Change params when testing
+	printf("%d\n\n", c); 
+
+	//------------------------------------------------
+
+	printf("Test2: MonthDay\n");
+	MonthDay(2015, 366, &a, &b); //Change params when testing
+	printf("Month: %d, Day: %d\n\n", a, b);
+	//<-- End of tests
+
+	return 0;
+}
+
 //Converting Month Day to Year Day
 int DayOfYear(int year, int month, int day) {
-	if(year < 0 || month <= 0 || month > 12 || day <= 0 ) {
+	if(year < 0 || month <= 0 || month > 12 || day <= 0) {
 		return -1;
 	}
 
@@ -1251,7 +1272,7 @@ void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
 	int i, leap;
 	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 
-	if(yearDay < 0 || ((!leap && yearDay > 365) || 
+	if(yearDay < 0 || ((!leap && yearDay > 365) ||
 		(leap && yearDay > 366))) {
 
 		error = true;
@@ -1268,32 +1289,36 @@ void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
 	} else { *pMonth = *pDay = -1; }
 }
 
+*/
+/*
+Task: 5.9
+*/
+static char nonLeapY[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static char leapY[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+static char *dayTab[] = {nonLeapY, leapY};
+
+int DayOfYear(int, int, int);
+void MonthDay(int, int, int *, int *);
+char *MonthName(int);
+
 int main() {
 	int a, b, c;
 
 	//--> Just some testing
 	printf("Test1: DayOfYear\n");
-	c = DayOfYear(0, 11, 30); //Change params when testing
-	printf("%d\n\n", c); 
+	c = DayOfYear(2016, 2, 29); //Change params when testing
+	printf("%d\n\n", c);
 
 	//------------------------------------------------
 
 	printf("Test2: MonthDay\n");
-	MonthDay(2015, 366, &a, &b); //Change params when testing
-	printf("Month: %d, Day: %d\n\n", a, b);
+	MonthDay(2016, 366, &a, &b); //Change params when testing
+	printf("Month: %s, Day: %d\n\n", MonthName(a), b);
 	//<-- End of tests
 
 	return 0;
 }
-*/
-
-/*
-Task: 5.9
-
-static char nonLeapY[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-static char leapY[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-static char *dayTab[] = {nonLeapY, leapY};
 
 //Converting Month Day to Year Day
 int DayOfYear(int year, int month, int day) {
@@ -1342,21 +1367,15 @@ void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
 	} else { *pMonth = *pDay = -1; }
 }
 
-int main() {
-	int a, b, c;
+//Return the name of the n-th month
+char *MonthName(int n) {
+	static char *name[] = {
+		"Illegal month", "January", "February", "March",
+		"April", "May", "June", "July", "August",
+		"September", "October", "November", "December"
+	};
 
-	//--> Just some testing
-	printf("Test1: DayOfYear\n");
-	c = DayOfYear(2016, 2, 29); //Change params when testing
-	printf("%d\n\n", c);
+	if(n < 1 || n > 12) { return *(name); }
 
-	//------------------------------------------------
-
-	printf("Test2: MonthDay\n");
-	MonthDay(2016, 366, &a, &b); //Change params when testing
-	printf("Month: %d, Day: %d\n\n", a, b);
-	//<-- End of tests
-
-	return 0;
+	return *(name + n);
 }
-*/
