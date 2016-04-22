@@ -1136,7 +1136,7 @@ bool StrEnd(char s[], char t[]) {
 
 /*
 Task: 5.5
-*/
+
 #define MAX_INT 2147483647
 
 int StrLen(char []);
@@ -1147,7 +1147,7 @@ int StrnCmp(char[], char[], int = MAX_INT);
 int main() {
 	//Change when testing -->
 	const int numChars = 3;
-	char a[numChars + 1], b[] = "abc";
+	char a[numChars + 1], b[] = "abcde";
 	//<--
 	
 	//Coping chars from b to a
@@ -1169,7 +1169,7 @@ int main() {
 	//------------------------------------------
 
 	//Comparing p & q
-	char p[] = "r2d2", q[] = "r2d6";
+	char p[] = "abcdd", q[] = "abcda";
 	int result = StrnCmp(p, q);
 	printf("Comparing result: %d\n", result);
 
@@ -1187,9 +1187,9 @@ int StrLen(char s[]) {
 
 //Coping chars from t to s untill the n character or \0 is reached
 void StrnCpy(char s[], char t[], int n) {
-	int i = 0;
+	size_t i = 0;
 
-	while(((s[i] = t[i]) && --n > 0) && t[i++] != '\0');
+	while(((s[i] = t[i]) && --n >= 0) && t[i++] != '\0');
 	s[i] = '\0';
 }
 
@@ -1211,7 +1211,152 @@ int StrnCmp(char s[], char t[], int n) {
 
 	return s[i] - t[i];
 }
+*/
 
 /*
 Task: 5.8
+
+static char dayTab[2][13] = {
+	{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+};
+
+//Converting Month Day to Year Day
+int DayOfYear(int year, int month, int day) {
+	if(year < 0 || month <= 0 || month > 12 || day <= 0 ) {
+		return -1;
+	}
+
+	int i, leap;
+	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+
+	if(day > dayTab[leap][month]) { return -1; }
+
+	for(i = 1; i < month; i++) {
+		day += dayTab[leap][i];
+	}
+
+	return day;
+}
+
+//Converting YearDay to Month & Day
+void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
+	bool error = false;
+
+	if(year < 0) {
+		error = true;
+		printf("Error! Invalid year!\n");
+	}
+
+	int i, leap;
+	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+
+	if(yearDay < 0 || ((!leap && yearDay > 365) || 
+		(leap && yearDay > 366))) {
+
+		error = true;
+		printf("Error! Invalid day!\n");
+	}
+
+	for(i = 1; yearDay > dayTab[leap][i] && !error; i++) {
+		yearDay -= dayTab[leap][i];
+	}
+
+	if(!error) {
+		*pMonth = i;
+		*pDay = yearDay;
+	} else { *pMonth = *pDay = -1; }
+}
+
+int main() {
+	int a, b, c;
+
+	//--> Just some testing
+	printf("Test1: DayOfYear\n");
+	c = DayOfYear(0, 11, 30); //Change params when testing
+	printf("%d\n\n", c); 
+
+	//------------------------------------------------
+
+	printf("Test2: MonthDay\n");
+	MonthDay(2015, 366, &a, &b); //Change params when testing
+	printf("Month: %d, Day: %d\n\n", a, b);
+	//<-- End of tests
+
+	return 0;
+}
+*/
+
+/*
+Task: 5.9
+
+static char nonLeapY[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+static char leapY[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+static char *dayTab[] = {nonLeapY, leapY};
+
+//Converting Month Day to Year Day
+int DayOfYear(int year, int month, int day) {
+	if(year < 0 || month <= 0 || month > 12 || day <= 0) {
+		return -1;
+	}
+
+	int i, leap;
+	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+
+	if(day > *(*(dayTab + leap) + month)) { return -1; }
+
+	for(i = 1; i < month; i++) {
+		day += *(*(dayTab + leap) + i);
+	}
+
+	return day;
+}
+
+//Converting YearDay to Month & Day
+void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
+	bool error = false;
+
+	if(year < 0) {
+		error = true;
+		printf("Error! Invalid year!\n");
+	}
+
+	int i, leap;
+	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+
+	if(yearDay < 0 || ((!leap && yearDay > 365) ||
+		(leap && yearDay > 366))) {
+
+		error = true;
+		printf("Error! Invalid day!\n");
+	}
+
+	for(i = 1; yearDay > *(*(dayTab + leap) + i) && !error; i++) {
+		yearDay -= *(*(dayTab + leap) + i);
+	}
+
+	if(!error) {
+		*pMonth = i;
+		*pDay = yearDay;
+	} else { *pMonth = *pDay = -1; }
+}
+
+int main() {
+	int a, b, c;
+
+	//--> Just some testing
+	printf("Test1: DayOfYear\n");
+	c = DayOfYear(2016, 2, 29); //Change params when testing
+	printf("%d\n\n", c);
+
+	//------------------------------------------------
+
+	printf("Test2: MonthDay\n");
+	MonthDay(2016, 366, &a, &b); //Change params when testing
+	printf("Month: %d, Day: %d\n\n", a, b);
+	//<-- End of tests
+
+	return 0;
+}
 */
