@@ -21,6 +21,10 @@ void SortedInsert(List *, List);
 void InsertSort(List *);
 void Append(List *, List *);
 void FrontBackSplit(List, List *, List *);
+void RemoveDuplicates(List);
+void MoveNode(List *, List *);
+void AlternatingSplit(List, List *, List *);
+List ShuffleMerge(List, List);
 
 void PrintList(List);
 

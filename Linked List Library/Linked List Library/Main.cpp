@@ -97,7 +97,63 @@ int main() {
 
 	PrintList(a);*/
 
+	/*List longL = NULL;
+	Push(&longL, 67);
+	Push(&longL, 8);
+	Push(&longL, 201);
+	Push(&longL, 14);
+	Push(&longL, 8);
 
+	PrintList(longL);
+	printf("\n");
+
+	List a = NULL, b = NULL;
+
+	FrontBackSplit(longL, &a, &b);
+
+	PrintList(a);
+	PrintList(b);*/
+
+	/*List longL = NULL;
+	Push(&longL, 5);
+	Push(&longL, 4);
+	Push(&longL, 4);
+	Push(&longL, 3);
+	Push(&longL, 2);
+	Push(&longL, 1);
+
+	PrintList(longL);
+
+	RemoveDuplicates(longL);
+
+	PrintList(longL);*/
+
+	//List a = BuildOneTwoThree(); // the list {1, 2, 3}
+	//List b = BuildOneTwoThree();
+	//MoveNode(&a, &b);
+
+	//PrintList(a);
+	//PrintList(b);
+	//// a == {1, 1, 2, 3}
+	//// b == {2, 3}
+
+	/*List head = NULL;
+	Push(&head, 5);
+	Push(&head, 4);
+	Push(&head, 3);
+	Push(&head, 2);
+	Push(&head, 1);
+
+	PrintList(head);
+
+	List a = NULL, b = NULL;
+
+	AlternatingSplit(head, &a, &b);
+
+	PrintList(a);
+	PrintList(b);*/
+
+	
 
 	return 0;
 }

@@ -27,7 +27,6 @@ int Length(List head) {
 void Push(List *head, int data) {
 	List temp = NULL;
 
-	temp = (List)malloc(sizeof(Node));
 	temp->data = data;
 	temp->next = *head;
 
@@ -110,7 +109,7 @@ int Pop(List *headRef) {
 }
 
 void InsertNth(List *headRef, int index, int data) {
-	List toBeInserted = (List)malloc(sizeof(Node));
+	List toBeInserted = NULL;
 
 	toBeInserted->data = data;
 	toBeInserted->next = NULL;
@@ -180,6 +179,61 @@ void Append(List *aRef, List *bRef) {
 }
 
 void FrontBackSplit(List source, List *frontRef, List *backRef) {
+	int size = Length(source);
+
+	if(size < 2) {
+		*frontRef = source;
+		*backRef = NULL;
+	} else {
+		List temp = source;
+		int i;
+
+		for(i = 0; i < (size - 1) / 2; i++) {
+			temp = temp->next;
+		}
+
+		*frontRef = source;
+		*backRef = temp->next;
+		temp->next = NULL;
+	}
+}
+
+void RemoveDuplicates(List head) {
+	List list = head;
+
+	if(head == NULL) { return; }
+
+	while(list->next != NULL) {
+		if(list->data == (list->next)->data) {
+			List temp = (list->next)->next;
+			free(list->next);
+			list->next = temp;
+		} else {
+			list = list->next;
+		}
+	}
+}
+
+void MoveNode(List *destRef, List *sourceRef) {
+	if(*sourceRef == NULL) { return; }
+
+	List list = *sourceRef;
+	*sourceRef = (*sourceRef)->next;
+
+	list->next = *destRef;
+	*destRef = list;
+}
+
+void AlternatingSplit(List source, List *aRef, List *bRef) {
+	while(source != NULL) {
+		MoveNode(&(*aRef), &source);
+		if(source != NULL) {
+			MoveNode(&(*bRef), &source);
+		}
+	}
+}
+
+List ShuffleMerge(List a, List b) {
 	
 }
 
