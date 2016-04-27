@@ -1292,7 +1292,7 @@ void MonthDay(int year, int yearDay, int *pMonth, int *pDay) {
 */
 /*
 Task: 5.9
-*/
+
 static char nonLeapY[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 static char leapY[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
@@ -1379,3 +1379,192 @@ char *MonthName(int n) {
 
 	return *(name + n);
 }
+*/
+
+/*
+Task: 6.4
+
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAXWORD 100
+#define BUFSIZE 100
+
+char buf[BUFSIZE];
+int bufp = 0;
+
+struct tNode {
+	char *word;
+	int count;
+	struct tNode *left;
+	struct tNode *right;
+};
+
+struct tNode *AddTree(struct tNode *, char *);
+void TreePrint(struct tNode *, int, int *);
+int GetWord(char *, int);
+
+struct tNode *Talloc();
+char *StrDup(char *);
+
+int GetCh();
+void UnGetch(int);
+
+int main() {
+	struct tNode *root;
+	char word[MAXWORD];
+
+	root = NULL;
+
+	int i = 1, num = 0;
+
+	while(GetWord(word, MAXWORD) != EOF) {
+		if(isalpha(word[0])) {
+			root = AddTree(root, word);
+			num++;
+		}
+	}
+
+	int result = 0;
+
+	while(i < num) {
+		TreePrint(root, i, &result);
+
+		if(result == 0) { break; }
+
+		i++;
+		result = 0;
+	}
+	
+
+	return 0;
+}
+
+struct tNode *AddTree(struct tNode *p, char *w) {
+	int cond;
+
+	if(p == NULL) {
+		p = Talloc();
+		p->word = StrDup(w);
+		p->count = 1;
+		p->left = p->right = NULL;
+	} else if((cond = strcmp(w, p->word)) == 0) {
+		p->count++;
+	} else if(cond < 0) {
+		p->left = AddTree(p->left, w);
+	} else {
+		p->right = AddTree(p->right, w);
+	}
+	return p;
+}
+
+void TreePrint(struct tNode *p, int num, int *result) {
+	if(p != NULL) {
+		if(p->count == num) {
+			(*result)++;
+			printf("%4d %s\n", p->count, p->word);
+		}
+		TreePrint(p->left, num, result);
+		TreePrint(p->right, num, result);
+	}
+}
+
+int GetWord(char *word, int lim) {
+	int c, GetCh();
+	void UnGetch(int);
+
+	char *w = word;
+
+	while(isspace(c = GetCh()));
+
+	if(c != EOF) { *w++ = c; }
+
+	if(!isalpha(c)) {
+		*w = '\0';
+		return c;
+	}
+
+	for(; --lim > 0; w++) {
+		if(!isalnum(*w = GetCh())) {
+			UnGetch(*w);
+			break;
+		}
+	}
+
+	*w = '\0';
+	return word[0];
+}
+
+struct tNode *Talloc() {
+	return (struct tNode *) malloc(sizeof(struct tNode));
+}
+
+char *StrDup(char *s) {
+	char *p;
+
+	p = (char *)malloc(strlen(s) + 1);
+	if(p != NULL) {
+		strcpy(p, s);
+	}
+	
+	return p;
+}
+
+int GetCh() {
+	return (bufp > 0) ? buf[--bufp] : getchar();
+}
+
+void UnGetch(int c) {
+	if(bufp >= BUFSIZE) {
+		printf("UnGetch: too many chars\n");
+	} else {
+		buf[bufp++] = c;
+	}
+}
+*/
+
+/*
+Task: 8.6
+
+#include <stdlib.h>
+
+void *Calloc(unsigned, unsigned);
+
+int main() {
+	//Just some testing for the Calloc function from the internet
+	int i, n;
+	char * buffer;
+
+	printf("How long do you want the string? ");
+	scanf("%d", &i);
+
+	buffer = (char*)malloc(i + 1);
+	if(buffer == NULL) exit(1);
+
+	for(n = 0; n<i; n++)
+		buffer[n] = rand() % 26 + 'a';
+	buffer[i] = '\0';
+
+	printf("Random string: %s\n", buffer);
+	free(buffer);
+
+	return 0;
+}
+
+void *Calloc(unsigned n, unsigned size) {
+	unsigned i, nBytes;
+	char *p;
+
+	nBytes = n * size;
+
+	if((p = (char *)malloc(nBytes)) != NULL) {
+		for(i = 0; i < nBytes; i++) {
+			*p++ = 0;
+		}
+	}
+
+	return (char *)malloc(nBytes);
+
+}
+*/
