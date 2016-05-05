@@ -1526,7 +1526,7 @@ void UnGetch(int c) {
 
 /*
 Task: 8.6
-
+*/
 #include <stdlib.h>
 
 void *Calloc(unsigned, unsigned);
@@ -1534,21 +1534,18 @@ void *Calloc(unsigned, unsigned);
 int main() {
 	//Just some testing for the Calloc function from the internet
 	int i, n;
-	char * buffer;
-
-	printf("How long do you want the string? ");
+	int * pData;
+	printf("Amount of numbers to be entered: ");
 	scanf("%d", &i);
-
-	buffer = (char*)malloc(i + 1);
-	if(buffer == NULL) exit(1);
-
-	for(n = 0; n<i; n++)
-		buffer[n] = rand() % 26 + 'a';
-	buffer[i] = '\0';
-
-	printf("Random string: %s\n", buffer);
-	free(buffer);
-
+	pData = (int*)Calloc(i, sizeof(int));
+	if(pData == NULL) exit(1);
+	for(n = 0; n<i; n++) {
+		printf("Enter number #%d: ", n + 1);
+		scanf("%d", &pData[n]);
+	}
+	printf("You have entered: ");
+	for(n = 0; n<i; n++) printf("%d ", pData[n]);
+	free(pData);
 	return 0;
 }
 
@@ -1565,6 +1562,4 @@ void *Calloc(unsigned n, unsigned size) {
 	}
 
 	return (char *)malloc(nBytes);
-
 }
-*/

@@ -36,5 +36,12 @@ int main() {
 
 	printf("\n");
 
+	/* Test 5: Testing QuickSort on both arrays */
+
+	MeasureTime(QuickSort, bigRandom, sizeOfBigRandom);
+	MeasureTime(QuickSort, nearSorted, sizeOfNearSorted);
+
+	printf("\n");
+
 	return 0;
 }

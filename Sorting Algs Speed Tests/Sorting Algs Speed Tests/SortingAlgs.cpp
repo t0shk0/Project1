@@ -28,17 +28,22 @@ void MeasureTime(void(*func)(Data *), int arr[], int arrSize) {
 	CopyArray(tempData.arr, arr, arrSize);
 	tempData.arrSize = arrSize;
 
-	//MergeSort Data -->
+
+	//MergeSort & QuickSort Data -->
+
 	tempData.first = 0;
 	tempData.last = arrSize - 1;
+
 	//<--
 
 	//Begin counting millisecs
 	begin = clock();
+
+	//Execute the sorting algorithm function
 	(*func)(&tempData);
+
 	//Stops the counter
 	end = clock();
-
 
 	timeSpent = (double)(end - begin);
 
@@ -119,12 +124,14 @@ void BubbleSort(Data *data) {
 			}
 			(*data).loopIterats++;
 		}
-
 		if(!swap) { break; }
 	}
 }
 
+
 //Merging Sort Functions -->
+//
+//Sorting int arrays via MergeSort algorithm
 void MergeSort(Data *data) {
 	const char * tempName = __func__;
 	int mid;
@@ -171,3 +178,60 @@ void Merge(int arr[], int tempArr[], int low, int mid, int high) {
 	for(i = low; i <= high; i++) { arr[i] = tempArr[i]; }
 }
 //<-- Merging Sort Functions
+
+
+//QuickSort Functions -->
+//
+//Sorting int arrays via QuickSort algorithm
+void QuickSort(Data *data) {
+	const char * tempName = __func__;
+
+	//Adding extra time to the final results
+	strcpy_s((*data).funcName, 20, tempName);
+
+	(*data).loopIterats++;
+
+	if((*data).last - (*data).first <= 0) {
+		return;
+	} else {
+		int pivot = (*data).arr[(*data).last];
+		int partitionPoint = Partition((*data).arr, (*data).first, (*data).last, pivot);
+		Data tempData = *data;
+
+		(*data).last = partitionPoint - 1;
+
+		QuickSort(data);
+
+		(*data).first = partitionPoint + 1;
+		(*data).last = tempData.last;
+
+		QuickSort(data);
+	}
+}
+
+//Partitioning the array of integers
+int Partition(int arr[], int left, int right, int pivot) {
+	int leftPointer = left - 1, rightPointer = right;
+
+	while(true) {
+		do { leftPointer++; } 
+		while(arr[leftPointer] < pivot);
+
+		do { rightPointer--; } 
+		while(rightPointer > 0 && arr[rightPointer] > pivot);
+
+		if(leftPointer >= rightPointer) { break; } 
+		else { Swap(arr, leftPointer, rightPointer); }
+	}
+	Swap(arr, leftPointer, right);
+
+	return leftPointer;
+}
+
+//Swaping two integers from 'arr': 'num1' with 'num2'
+void Swap(int arr[], int num1, int num2) {
+	int temp = arr[num1];
+	arr[num1] = arr[num2];
+	arr[num2] = temp;
+}
+//<-- QuickSort Functions

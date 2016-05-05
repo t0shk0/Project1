@@ -189,7 +189,7 @@ int main() {
 
 	//Test 12
 	
-	/*List a = NULL;
+	List a = NULL;
 	a = BuildOneTwoThree();
 
 	PrintList(a);
@@ -204,7 +204,7 @@ int main() {
 	List c = NULL;
 	c = ShuffleMerge(a, b);
 
-	PrintList(c);*/
+	PrintList(c);
 
 
 	//Test 13
@@ -291,8 +291,8 @@ int main() {
 	//PrintList(head);
 	//DeleteList(&head); // clean up after ourselves
 
-	List a = BuildWithDummyNode();
-	PrintList(a);
+	//List a = BuildWithDummyNode();
+	//PrintList(a);
 
 	return 0;
 }
